@@ -13,9 +13,8 @@ function mainRow($token, $user)
 				</div>
 				<div class=\"panel-body\">
 					<div class=\"row\">
-						<div class=\"col-md-4 col-md-offset-2\"><a class=\"btn btn-success btn-lg btn-block btn-xlg\" href=\"/send.php?t=".urlencode($token)."&u=".$user."&a=beer&m=$wantToSpeak\" role=\"button\">Je veux intervenir</a></div>
-						<div class=\"col-md-4\"><a class=\"btn btn-danger btn-lg btn-block btn-xlg\" href=\"/send.php?t=".urlencode($token)."&u=".$user."&a=beer&m=$next\" role=\"button\">Il faut enchainer</a></div>
-						
+						<div class=\"col-md-4 col-md-offset-2\"><a class=\"btn btn-success btn-lg btn-block btn-xlg\" href=\"javascript:void(0)\" onClick=\"$.ajax('/send.php?t=".urlencode($token)."&u=".$user."&a=beer&m=$wantToSpeak')\" role=\"button\">Je veux intervenir</a></div>
+						<div class=\"col-md-4\"><a class=\"btn btn-danger btn-lg btn-block btn-xlg\" href=\"javascript:void(0)\" onClick=\"$.ajax('/send.php?t=".urlencode($token)."&u=".$user."&a=beer&m=$next')\" role=\"button\">Il faut enchainer</a></div>
 					</div>
 				</div>
 			</div>";
@@ -31,13 +30,18 @@ function adminRow($token)
 				</div>
 				<div class=\"panel-body\">
 					<div class=\"row\">
-						<div class=\"col-md-3\"><a class=\"btn btn-info btn-lg btn-block btn-xlg\" href=\"/send.php?t=".urlencode($token)."&u=Modérateur&a=soon&m=".nextSpeakerMessage($members[0])."\" role=\"button\">$members[0]</a></div>
-						<div class=\"col-md-3\"><a class=\"btn btn-info btn-lg btn-block btn-xlg\" href=\"/send.php?t=".urlencode($token)."&u=Modérateur&a=soon&m=".nextSpeakerMessage($members[1])."\" role=\"button\">$members[1]</a></div>
-						<div class=\"col-md-3\"><a class=\"btn btn-info btn-lg btn-block btn-xlg\" href=\"/send.php?t=".urlencode($token)."&u=Modérateur&a=soon&m=".nextSpeakerMessage($members[2])."\" role=\"button\">$members[2]</a></div>
-						<div class=\"col-md-3\"><a class=\"btn btn-info btn-lg btn-block btn-xlg\" href=\"/send.php?t=".urlencode($token)."&u=Modérateur&a=soon&m=".nextSpeakerMessage($members[3])."\" role=\"button\">$members[3]</a></div>
+						<div class=\"col-md-3\">".nextSpeakerButton($members[0], $token)."</div>
+						<div class=\"col-md-3\">".nextSpeakerButton($members[1], $token)."</div>
+						<div class=\"col-md-3\">".nextSpeakerButton($members[2], $token)."</div>
+						<div class=\"col-md-3\">".nextSpeakerButton($members[3], $token)."</div>
 					</div>
 				</div>
 			</div>";
+}
+
+function nextSpeakerButton($user, $token)
+{
+	return "<a class=\"btn btn-info btn-lg btn-block btn-xlg\" href=\"javascript:void(0)\" onClick=\"$.ajax('/send.php?t=".urlencode($token)."&u=Modérateur&a=soon&m=".nextSpeakerMessage($user)."')\" role=\"button\">$user</a>";
 }
 
 function nextSpeakerMessage($user)
