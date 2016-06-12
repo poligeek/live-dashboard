@@ -4,8 +4,8 @@ $members = array('adhumi', 'borosch', 'captainliban', 'ooalex');
 
 function mainRow($token, $user)
 {
-	$wantToSpeak = "Je veux intervenir.";
-	$next = "Il faut enchainer.";
+	$wantToSpeak = ":raising_hand: Je veux intervenir.";
+	$next = ":warning: Il faut enchainer.";
 	
 	return "<div class=\"panel panel-primary\">
 				<div class=\"panel-heading\">
