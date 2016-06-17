@@ -13,7 +13,7 @@ function mainRow($token, $user)
 				</div>
 				<div class=\"panel-body\">
 					<div class=\"row\">
-						<div class=\"col-md-4 col-md-offset-2\"><a class=\"btn btn-success btn-lg btn-block btn-xlg\" href=\"javascript:void(0)\" onClick=\"$.ajax('/send.php?t=".urlencode($token)."&u=".$user."&a=beer&m=$wantToSpeak')\" role=\"button\">Je veux intervenir</a></div>
+						<div class=\"col-md-4 col-md-offset-2\"><a class=\"btn btn-success btn-lg btn-block btn-xlg\" href=\"javascript:void(0)\" onClick=\"$.ajax('/send.php?t=".urlencode($token)."&u=".$user."&a=".urlencode('/assets/'.$user.'.png')."&m=$wantToSpeak')\" role=\"button\">Je veux intervenir</a></div>
 						<div class=\"col-md-4\"><a class=\"btn btn-danger btn-lg btn-block btn-xlg\" href=\"javascript:void(0)\" onClick=\"$.ajax('/send.php?t=".urlencode($token)."&u=".$user."&a=beer&m=$next')\" role=\"button\">Il faut enchainer</a></div>
 					</div>
 				</div>
@@ -54,9 +54,13 @@ function sendToSlack($token, $user, $avatar, $message)
 	$url = 'https://hooks.slack.com/services/'.$token;
 	$ch = curl_init($url);
 
+	if (substr($avatar, 0, 1) != '/') {
+		$avatar = ':'.$avatar.':';
+	}
+	
 	$payload = array(
 		'username' => $user,
-		'icon_emoji' => ':'.$avatar.':',
+		'icon_url' => $avatar,
 		'text' => $message
 	);
 
