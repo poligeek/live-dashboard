@@ -23,7 +23,10 @@ $user = !empty($_GET["u"]) ? $_GET["u"] : "-1";
 	</head>
 	<body>
 		<div class="container-fluid">
-		<?php if ($hookToken == -1 || $user == -1) { ?>
+		<?php
+		if ($hookToken == -1 || $user == -1) {
+			http_response_code(401);
+		?>
 			Access denied
 		<?php
 			} else {
