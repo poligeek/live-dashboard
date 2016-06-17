@@ -1,13 +1,13 @@
 <?php
-	
+
 $members = array('adhumi', 'borosch', 'captainliban', 'ooalex');
 
 function mainRow($token, $user)
 {
 	$wantToSpeak = ":raising_hand: Je veux intervenir.";
 	$next = ":warning: Il faut enchainer.";
-	
-	return "<div class=\"panel panel-primary\">
+
+	return "<div class=\"panel panel-default\">
 				<div class=\"panel-heading\">
 					<h3 class=\"panel-title\">$user</h3>
 				</div>
@@ -41,7 +41,7 @@ function adminRow($token)
 
 function nextSpeakerButton($user, $token)
 {
-	return "<a class=\"btn btn-info btn-lg btn-block btn-xlg\" href=\"javascript:void(0)\" onClick=\"$.ajax('/send.php?t=".urlencode($token)."&u=Modérateur&a=soon&m=".nextSpeakerMessage($user)."')\" role=\"button\">$user</a>";
+	return "<a class=\"btn btn-default btn-lg btn-block btn-xlg\" href=\"javascript:void(0)\" onClick=\"$.ajax('/send.php?t=".urlencode($token)."&u=Modérateur&a=soon&m=".nextSpeakerMessage($user)."')\" role=\"button\">$user</a>";
 }
 
 function nextSpeakerMessage($user)
@@ -53,19 +53,19 @@ function sendToSlack($token, $user, $avatar, $message)
 {
 	$url = 'https://hooks.slack.com/services/'.$token;
 	$ch = curl_init($url);
-	
+
 	$payload = array(
 		'username' => $user,
 		'icon_emoji' => ':'.$avatar.':',
 		'text' => $message
 	);
-	
+
 	$jsonDataEncoded = json_encode($payload);
-	
+
 	curl_setopt($ch, CURLOPT_POST, 1);
 	curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonDataEncoded);
-	curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json')); 
-	
+	curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+
 	$result = curl_exec($ch);
 }
 
