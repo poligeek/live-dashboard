@@ -1,12 +1,20 @@
 <?php
 
-include 'functions.php';
+require_once 'src/SlackMessenger.php';
+require_once 'src/Config.php';
 
-$token = $_GET["t"];
-$user = $_GET["u"];
-$avatar = urldecode($_GET["a"]);
-$message = $_GET["m"];
+$user = Config::users()[$_GET["user"]];
+$messenger = new SlackMessenger($_GET["token"], $user);
+$type = $_GET["type"];
 
-sendToSlack($token, $user, $avatar, $message);
+if ($type == 'user') {
+	$message = $_GET["message"];
+	$messenger->sendUserMessage($message);
+} elseif ($type == 'generic') {
+	$emoji = urldecode($_GET["emoji"]);
+	$username = $_GET["username"];
+	$message = $_GET["message"];
+	$messenger->sendGenericMessage($message, $username, $emoji);
+}
 
 ?>
