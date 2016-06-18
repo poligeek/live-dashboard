@@ -23,7 +23,7 @@ $renderer = new DashboardRenderer($_GET);
 	
 	<body>
 		<div class="container-fluid">
-			<? echo $renderer->dashboard() ?>
+			<?php echo $renderer->dashboard(); ?>
 		</div>
 	</body>
 </html>
